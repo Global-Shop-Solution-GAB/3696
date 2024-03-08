@@ -1,0 +1,229 @@
+Program.Sub.ScreenSU.Start
+gui.F_WC_MAINT..create
+gui.F_WC_MAINT..caption("Workcenter Maintenance")
+gui.F_WC_MAINT..size(4900,6700)
+gui.F_WC_MAINT..position(0,0)
+gui.F_WC_MAINT..event(resize,f_wc_maint_resize)
+gui.F_WC_MAINT..event(unload,f_wc_maint_unload)
+gui.F_WC_MAINT..alwaysontop(False)
+gui.F_WC_MAINT..fontname("Arial")
+gui.F_WC_MAINT..fontsize(8)
+gui.F_WC_MAINT..forecolor(0)
+gui.F_WC_MAINT..fontstyle(,,,,)
+gui.F_WC_MAINT..BackColor(-2147483633)
+gui.F_WC_MAINT..controlbox(True)
+gui.F_WC_MAINT..maxbutton(True)
+gui.F_WC_MAINT..minbutton(True)
+gui.F_WC_MAINT..mousepointer(0)
+gui.F_WC_MAINT..moveable(True)
+gui.F_WC_MAINT..sizeable(True)
+gui.F_WC_MAINT..ShowInTaskBar(True)
+gui.F_WC_MAINT..titlebar(True)
+gui.F_WC_MAINT.gsfgWC.create(gsflexgrid)
+gui.F_WC_MAINT.gsfgWC.FixedRows(0)
+gui.F_WC_MAINT.gsfgWC.FixedCols(0)
+gui.F_WC_MAINT.gsfgWC.visible(True)
+gui.F_WC_MAINT.gsfgWC.size(4450,5500)
+gui.F_WC_MAINT.gsfgWC.zorder(0)
+gui.F_WC_MAINT.gsfgWC.position(100,100)
+gui.F_WC_MAINT.gsfgWC.enabled(True)
+gui.F_WC_MAINT.cmdSave.create(button)
+gui.F_WC_MAINT.cmdSave.caption("Save")
+gui.F_WC_MAINT.cmdSave.visible(True)
+gui.F_WC_MAINT.cmdSave.size(855,375)
+gui.F_WC_MAINT.cmdSave.zorder(0)
+gui.F_WC_MAINT.cmdSave.position(100,5700)
+gui.F_WC_MAINT.cmdSave.enabled(True)
+gui.F_WC_MAINT.cmdSave.fontname("Arial")
+gui.F_WC_MAINT.cmdSave.fontsize(8)
+gui.F_WC_MAINT.cmdSave.event(click,cmdsave_click)
+
+
+Program.Sub.ScreenSU.End
+
+Program.Sub.Preflight.Start
+
+Variable.Global.sWC.Declare(String)
+Program.Sub.Preflight.End
+
+Program.Sub.Main.Start
+'Hook 14860 and 14840
+'Hook 14840:
+F.Intrinsic.Control.If(V.caller.Hook,=,14840)
+	V.Passed.000068.Set("Insp Check")
+	F.Intrinsic.Control.End
+F.Intrinsic.Control.EndIf
+
+V.Local.iC.Declare(Long)
+V.Local.sRet.Declare(String)
+
+V.Global.sWC.Set(V.Passed.000005)
+F.Intrinsic.Control.If(V.Global.sWC,=,"")
+	F.Intrinsic.UI.Msgbox("No workcenter is selected.  Load all workcenters?","Load all Workcenters",1,V.Local.sRet)
+	F.Intrinsic.Control.If(V.Local.sRet,=,2)
+		F.Intrinsic.Control.End
+	F.Intrinsic.Control.EndIf
+F.Intrinsic.Control.EndIf
+
+F.ODBC.Connection!conx.OpenConnection(V.Ambient.PDSN,V.Ambient.PUser,V.Ambient.PPass)
+Gui.F_WC_MAINT.gsfgWC.Rows(2)
+Gui.F_WC_MAINT.gsfgWC.Cols(4)
+Gui.F_WC_MAINT.gsfgWC.TextMatrix(0,0,"WC")
+Gui.F_WC_MAINT.gsfgWC.ColWidth(0,"800")
+Gui.F_WC_MAINT.gsfgWC.TextMatrix(1,0,"Description")
+Gui.F_WC_MAINT.gsfgWC.ColWidth(1,"2500")
+Gui.F_WC_MAINT.gsfgWC.TextMatrix(2,0,"")
+Gui.F_WC_MAINT.gsfgWC.ColWidth(2,"0")
+Gui.F_WC_MAINT.gsfgWC.TextMatrix(3,0,"Inspect?")
+Gui.F_WC_MAINT.gsfgWC.ColWidth(3,"800")
+
+Gui.F_WC_MAINT.gsfgWC.Fixedrows(1)
+
+F.Intrinsic.Control.For(V.Local.iC,0,1,1)
+	Gui.F_WC_MAINT.gsfgWC.BuildStyle(1,V.Local.iC,"type","locked","true")
+	Gui.F_WC_MAINT.gsfgWC.BuildStyle(1,V.Local.iC,"format","alignment","2")
+F.Intrinsic.Control.Next(V.Local.iC)
+Gui.F_WC_MAINT.gsfgWC.BuildStyle(1,3,"type","CheckBox","0")
+Gui.F_WC_MAINT.gsfgWC.BuildStyle(1,3,"format","alignment","4")
+
+Gui.F_WC_MAINT.gsfgWC.BuildStyle(2,3,"type","CheckBox","0")
+Gui.F_WC_MAINT.gsfgWC.BuildStyle(2,3,"format","alignment","4")
+
+Gui.F_WC_MAINT.gsfgWC.ApplyStyle(1,1)
+
+F.Intrinsic.Control.CallSub("LoadWC")
+
+Program.Sub.Main.End
+
+program.sub.f_wc_maint_unload.start
+F.ODBC.Connection!conx.Close
+F.Intrinsic.Control.End
+
+program.sub.f_wc_maint_unload.end
+
+program.sub.f_wc_maint_resize.start
+V.Local.width.Declare(Long)
+V.Local.height.Declare(Long)
+V.Local.gWidth.Declare(Long)
+
+F.Intrinsic.Control.If(V.Screen.F_WC_MAINT.Height,<,4000)
+	Gui.F_WC_MAINT..Size(V.Screen.F_WC_MAINT.Width,4000)
+F.Intrinsic.Control.EndIf
+F.Intrinsic.Control.If(V.Screen.F_WC_MAINT.Width,<,4900)
+	Gui.F_WC_MAINT..Size(4900,V.Screen.F_WC_MAINT.Height)
+F.Intrinsic.Control.EndIf
+
+F.Intrinsic.Math.Sub(V.Screen.F_WC_MAINT.Height,1200,V.Local.height)
+F.Intrinsic.Math.Sub(V.Screen.F_WC_MAINT.Width,450,V.Local.width)
+Gui.F_WC_MAINT.gsfgWC.Size(V.Local.width,V.Local.height)
+
+F.Intrinsic.Math.Add(V.Local.height,200,V.Local.height)
+Gui.F_WC_MAINT.cmdSave.Position(V.Screen.F_WC_MAINT!cmdSave.Left,V.Local.height)
+
+F.Intrinsic.Control.If(V.Screen.F_WC_MAINT!gsfgWC.Width,>,4450)
+	F.Intrinsic.Math.Add(V.Screen.F_WC_MAINT!gsfgWC.Width,-350,V.Local.gWidth)
+	F.Intrinsic.Math.Mult(V.Local.gWidth,0.195122,V.Local.width)
+	Gui.F_WC_MAINT.gsfgWC.ColWidth(0,V.Local.width)
+	Gui.F_WC_MAINT.gsfgWC.ColWidth(3,V.Local.width)
+	F.Intrinsic.Math.Mult(V.Local.gWidth,0.609756,V.Local.width)
+	Gui.F_WC_MAINT.gsfgWC.ColWidth(1,V.Local.width)
+F.Intrinsic.Control.Else
+	Gui.F_WC_MAINT.gsfgWC.ColWidth(0,"800")
+	Gui.F_WC_MAINT.gsfgWC.ColWidth(1,"2500")
+	Gui.F_WC_MAINT.gsfgWC.ColWidth(3,"800")
+F.Intrinsic.Control.EndIf
+
+program.sub.f_wc_maint_resize.end
+
+program.sub.cmdsave_click.start
+Gui.F_WC_MAINT..Enabled(False)
+Gui.F_WC_MAINT..Visible(false)
+V.Local.iR.Declare(Long)
+V.Local.iRows.Declare(Long)
+V.Local.sQuery.Declare(String)
+V.Local.sRow.Declare(String)
+
+F.Intrinsic.UI.InvokeWaitDialog("Saving...","Save")
+F.Intrinsic.Math.Add(V.Screen.F_WC_MAINT!gsfgWC.Rows,-1,V.Local.iRows)
+
+F.Intrinsic.Control.For(V.local.iR,1,V.Local.iRows,1)
+	Gui.F_WC_MAINT.gsfgWC.ReadRow(V.local.iR,V.Local.sRow)
+	F.Intrinsic.String.split(V.Local.sRow,"*!*",V.Local.sRow)
+
+	F.Intrinsic.String.Concat("SELECT * FROM ATG_3696_WC_MAINT WHERE WC='",V.Local.sRow(0),"'",V.Local.sQuery)
+	F.ODBC.Connection!conx.OpenRecordsetRW("rstSave",V.Local.sQuery)
+	F.Intrinsic.Control.If(V.ODBC.conx!rstSave.EOF,=,True)
+		F.ODBC.conx!rstSave.AddNew
+		F.ODBC.conx!rstSave.Set!WO(V.Local.sRow(0))
+		F.ODBC.conx!rstSave.Set!DESCR(V.Local.sRow(1))
+	F.Intrinsic.Control.EndIf
+	F.Intrinsic.Control.If(V.Local.sRow(3),=,"1")
+		F.ODBC.conx!rstSave.Set!INSP_FLAG("Y")
+	F.Intrinsic.Control.Else
+		F.ODBC.conx!rstSave.Set!INSP_FLAG("N")
+	F.Intrinsic.Control.EndIf
+	F.ODBC.conx!rstSave.Update
+	F.ODBC.conx!rstSave.Close
+F.Intrinsic.Control.Next(V.Local.iR)
+
+F.Intrinsic.Debug.Stop
+F.Intrinsic.UI.CloseWaitDialog
+F.Intrinsic.Control.CallSub("f_wc_maint_unload")
+
+
+
+program.sub.cmdsave_click.end
+
+Program.Sub.LoadWC.Start
+V.Local.iR.Declare(Long)
+V.Local.iRows.Declare(Long,1)
+V.Local.sTemp.Declare(String)
+V.Local.sQuery.Declare(String)
+
+F.Intrinsic.UI.InvokeWaitDialog("Loading...")
+F.Intrinsic.Control.CallSub("UpdateWCs")
+F.Intrinsic.Control.If(V.Global.sWC,=,"")
+	V.Local.sQuery.Set("SELECT * FROM ATG_3696_WC_MAINT ORDER BY WC ASC")
+F.Intrinsic.Control.Else
+	F.Intrinsic.String.Concat("SELECT * FROM ATG_3696_WC_MAINT WHERE WC='",V.Global.sWC,"'",V.Local.sQuery)
+F.Intrinsic.Control.EndIf
+
+F.ODBC.Connection!conx.OpenRecordsetRO("rstWC",V.Local.sQuery)
+Gui.F_WC_MAINT.gsfgWC.LoadRecordset("conx!rstWC",1)
+
+F.Intrinsic.Math.Add(V.Screen.F_WC_MAINT!gsfgWC.Rows,-1,V.Local.iRows)
+F.Intrinsic.Control.For(V.Local.iR,1,V.Local.iRows,1)
+	Gui.F_WC_MAINT.gsfgWC.GetTextMatrix(2,V.Local.iR,V.Local.sTemp)
+	F.Intrinsic.Control.If(V.Local.sTemp.UCase,=,"Y")
+		Gui.F_WC_MAINT.gsfgWC.TextMatrix(3,V.Local.iR,1)
+	F.Intrinsic.Control.EndIf
+F.Intrinsic.Control.Next(V.Local.iR)
+F.ODBC.conx!rstWC.Close
+Gui.F_WC_MAINT.gsfgWC.Rows(V.Local.iRows)
+
+F.Intrinsic.UI.CloseWaitDialog
+Gui.F_WC_MAINT..Show
+
+
+Program.Sub.LoadWC.End
+
+Program.Sub.UpdateWCs.Start
+V.Local.sQuery.Declare(String)
+
+F.ODBC.Connection!conx.OpenRecordsetRO("rstWOs","SELECT MACHINE, WC_NAME FROM V_WORKCENTERS WHERE MACHINE NOT IN (SELECT WC FROM ATG_3696_WC_MAINT) ORDER BY MACHINE ASC")
+F.ODBC.Connection!conx.OpenRecordsetRW("rstWOMaint","SELECT * FROM ATG_WC_MAINT")
+F.Intrinsic.Control.DoUntil(V.ODBC.conx!rstWOs.EOF,=,True)
+	F.ODBC.conx!rstWOMaint.AddNew
+	F.ODBC.conx!rstWOMaint.Set!WC(V.ODBC.conx!rstWOs.FieldValTrim!MACHINE)
+	F.ODBC.conx!rstWOMaint.Set!DESCR(V.ODBC.conx!rstWOs.FieldValTrim!WC_NAME)
+	F.ODBC.conx!rstWOMaint.Set!INSP_FLAG("N")
+	F.ODBC.conx!rstWOMaint.Update
+
+	F.ODBC.conx!rstWOs.MoveNext
+F.Intrinsic.Control.Loop
+F.ODBC.conx!rstWOs.Close
+F.ODBC.conx!rstWOMaint.Close
+
+Program.Sub.UpdateWCs.End
+
+
