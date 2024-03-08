@@ -1,0 +1,908 @@
+Program.Sub.ScreenSU.Start
+gui.F_Inspection..create
+gui.F_Inspection..caption("Inspection Data")
+gui.F_Inspection..size(8550,4800)
+gui.F_Inspection..position(0,0)
+gui.F_Inspection..event(resize,f_inspection_resize)
+gui.F_Inspection..event(unload,f_inspection_unload)
+gui.F_Inspection..alwaysontop(False)
+gui.F_Inspection..fontname("Arial")
+gui.F_Inspection..fontsize(8)
+gui.F_Inspection..forecolor(0)
+gui.F_Inspection..fontstyle(,,,,)
+gui.F_Inspection..BackColor(-2147483633)
+gui.F_Inspection..controlbox(True)
+gui.F_Inspection..maxbutton(True)
+gui.F_Inspection..minbutton(True)
+gui.F_Inspection..mousepointer(0)
+gui.F_Inspection..moveable(True)
+gui.F_Inspection..sizeable(True)
+gui.F_Inspection..ShowInTaskBar(True)
+gui.F_Inspection..titlebar(True)
+gui.F_Inspection.lbl1.create(label,"Inspection No",True,1155,255,1,200,200,True,0,Arial,8,-2147483633,0)
+gui.F_Inspection.txtInsp_No.create(textbox,"",True,1200,300,0,200,400,False,0,Arial,8,-2147483643,1)
+gui.F_Inspection.lbl2.create(label,"Job",True,1110,255,1,1500,200,True,0,Arial,8,-2147483633,0)
+gui.F_Inspection.lbl3.create(label,"Suffix",True,705,255,1,3500,200,True,0,Arial,8,-2147483633,0)
+gui.F_Inspection.lbl4.create(label,"Seq",True,705,255,1,4800,200,True,0,Arial,8,-2147483633,0)
+gui.F_Inspection.lbl5.create(label,"Date",True,705,255,1,6100,200,True,0,Arial,8,-2147483633,0)
+gui.F_Inspection.lbl6.create(label,"Employee No ",True,1110,255,1,200,800,True,0,Arial,8,-2147483633,0)
+gui.F_Inspection.lbl7.create(label,"Employee Name",True,1290,255,1,1500,800,True,0,Arial,8,-2147483633,0)
+gui.F_Inspection.lbl8.create(label,"Workcenter",True,885,255,1,4500,800,True,0,Arial,8,-2147483633,0)
+gui.F_Inspection.lbl9.create(label,"Workcenter Description",True,1815,255,1,5700,800,True,0,Arial,8,-2147483633,0)
+gui.F_Inspection.lbl10.create(label,"Part",True,645,255,1,200,1400,True,0,Arial,8,-2147483633,0)
+gui.F_Inspection.lbl11.create(label,"Loc",True,495,255,1,3200,1400,True,0,Arial,8,-2147483633,0)
+gui.F_Inspection.lbl12.create(label,"Part Description",True,1260,255,1,4100,1400,True,0,Arial,8,-2147483633,0)
+gui.F_Inspection.txtJob.create(textbox,"",True,1900,300,0,1500,400,False,0,Arial,8,-2147483643,1)
+gui.F_Inspection.txtSuffix.create(textbox,"",True,1200,300,0,3500,400,False,0,Arial,8,-2147483643,1)
+gui.F_Inspection.txtSeq.create(textbox,"",True,1200,300,0,4800,400,False,0,Arial,8,-2147483643,1)
+gui.F_Inspection.txtEmpNo.create(textbox,"",True,1200,300,0,200,1000,False,0,Arial,8,-2147483643,1)
+gui.F_Inspection.txtEmpName.create(textbox,"",True,2900,300,0,1500,1000,False,0,Arial,8,-2147483643,1)
+gui.F_Inspection.txtWC.create(textbox,"",True,1100,300,0,4500,1000,False,0,Arial,8,-2147483643,1)
+gui.F_Inspection.txtWCDescr.create(textbox,"",True,2400,300,0,5700,1000,False,0,Arial,8,-2147483643,1)
+gui.F_Inspection.txtPartNo.create(textbox,"",True,2900,300,0,200,1600,False,0,Arial,8,-2147483643,1)
+gui.F_Inspection.txtLoc.create(textbox,"",True,800,300,0,3200,1600,False,0,Arial,8,-2147483643,1)
+gui.F_Inspection.txtPartDescr.create(textbox,"",True,4000,300,0,4100,1600,False,0,Arial,8,-2147483643,1)
+gui.F_Inspection.gsfgInspect.create(gsflexgrid)
+gui.F_Inspection.gsfgInspect.FixedRows(0)
+gui.F_Inspection.gsfgInspect.FixedCols(0)
+gui.F_Inspection.gsfgInspect.visible(True)
+gui.F_Inspection.gsfgInspect.size(7900,1600)
+gui.F_Inspection.gsfgInspect.zorder(0)
+gui.F_Inspection.gsfgInspect.position(200,2000)
+gui.F_Inspection.gsfgInspect.enabled(True)
+gui.F_Inspection.gsfgInspect.event(cellenter,gsfginspect_cellenter)
+gui.F_Inspection.cmdSave.create(button)
+gui.F_Inspection.cmdSave.caption("Save")
+gui.F_Inspection.cmdSave.visible(True)
+gui.F_Inspection.cmdSave.size(900,375)
+gui.F_Inspection.cmdSave.zorder(0)
+gui.F_Inspection.cmdSave.position(200,3700)
+gui.F_Inspection.cmdSave.enabled(True)
+gui.F_Inspection.cmdSave.fontname("Arial")
+gui.F_Inspection.cmdSave.fontsize(8)
+gui.F_Inspection.cmdSave.event(click,cmdsave_click)
+gui.F_Inspection.cmdAdd.create(button)
+gui.F_Inspection.cmdAdd.caption("Add Row")
+gui.F_Inspection.cmdAdd.visible(True)
+gui.F_Inspection.cmdAdd.size(900,375)
+gui.F_Inspection.cmdAdd.zorder(0)
+gui.F_Inspection.cmdAdd.position(1200,3700)
+gui.F_Inspection.cmdAdd.enabled(True)
+gui.F_Inspection.cmdAdd.fontname("Arial")
+gui.F_Inspection.cmdAdd.fontsize(8)
+gui.F_Inspection.cmdAdd.event(click,cmdadd_click)
+gui.F_Inspection.dtpDate.create(datepicker)
+gui.F_Inspection.dtpDate.visible(True)
+gui.F_Inspection.dtpDate.size(2000,285)
+gui.F_Inspection.dtpDate.zorder(0)
+gui.F_Inspection.dtpDate.position(6100,400)
+gui.F_Inspection.dtpDate.enabled(False)
+gui.F_Inspection.dtpDate.checkbox(False)
+
+
+gui.F_Line..create
+gui.F_Line..caption("Sample")
+gui.F_Line..size(7600,2500)
+gui.F_Line..position(0,0)
+gui.F_Line..event(unload,f_line_unload)
+gui.F_Line..alwaysontop(False)
+gui.F_Line..fontname("Arial")
+gui.F_Line..fontsize(8)
+gui.F_Line..forecolor(0)
+gui.F_Line..fontstyle(,,,,)
+gui.F_Line..BackColor(-2147483633)
+gui.F_Line..controlbox(True)
+gui.F_Line..maxbutton(False)
+gui.F_Line..minbutton(True)
+gui.F_Line..mousepointer(0)
+gui.F_Line..moveable(True)
+gui.F_Line..sizeable(False)
+gui.F_Line..ShowInTaskBar(True)
+gui.F_Line..titlebar(True)
+gui.F_Line.lbl1.create(label,"Sample",True,1140,255,1,100,100,True,0,Arial,8,-2147483633,0)
+gui.F_Line.txtSample.create(textbox,"",True,800,300,0,100,300,True,0,Arial,8,-2147483643,1)
+gui.F_Line.txtSample.event(gotfocus,txtsample_gotfocus)
+gui.F_Line.lbl2.create(label,"Type/Loc",True,1275,255,1,1000,100,True,0,Arial,8,-2147483633,0)
+gui.F_Line.txtType.create(textbox,"",True,1400,300,0,1000,300,True,0,Arial,8,-2147483643,1)
+gui.F_Line.txtType.event(gotfocus,txttype_gotfocus)
+gui.F_Line.lbl3.create(label,"Req. Dim.",True,990,255,1,2500,100,True,0,Arial,8,-2147483633,0)
+gui.F_Line.txtReq.create(textbox,"0.00000",True,1200,300,0,2500,300,True,0,Arial,8,-2147483643,1)
+gui.F_Line.txtReq.numericonly(1)
+gui.F_Line.txtReq.event(gotfocus,txtreq_gotfocus)
+gui.F_Line.txtReq.event(lostfocus,txtreq_lostfocus)
+gui.F_Line.txtTol.create(textbox,"0.00000",True,1200,300,0,3800,300,True,0,Arial,8,-2147483643,1)
+gui.F_Line.txtTol.numericonly(1)
+gui.F_Line.txtTol.event(gotfocus,txttol_gotfocus)
+gui.F_Line.txtTol.event(lostfocus,txttol_lostfocus)
+gui.F_Line.txtAct.create(textbox,"0.0000",True,1200,300,0,5100,300,True,0,Arial,8,-2147483643,1)
+gui.F_Line.txtAct.numericonly(1)
+gui.F_Line.txtAct.event(gotfocus,txtact_gotfocus)
+gui.F_Line.txtAct.event(lostfocus,txtact_lostfocus)
+gui.F_Line.txtGauge.create(textbox,"",True,1000,300,0,6400,300,True,0,Arial,8,-2147483643,1)
+gui.F_Line.txtGauge.numericonly(2)
+gui.F_Line.txtGauge.event(gotfocus,txtgauge_gotfocus)
+gui.F_Line.lbl4.create(label,"Tol.",True,1935,255,1,3800,100,True,0,Arial,8,-2147483633,0)
+gui.F_Line.lbl5.create(label,"Act. Dim.",True,1935,255,1,5100,100,True,0,Arial,8,-2147483633,0)
+gui.F_Line.lbl6.create(label,"Gauge",True,1935,255,1,6400,100,True,0,Arial,8,-2147483633,0)
+gui.F_Line.lbl7.create(label,"A/R",False,1935,255,1,7500,100,True,0,Arial,8,-2147483633,0)
+gui.F_Line.lbl8.create(label,"Notes",True,1935,255,1,100,700,True,0,Arial,8,-2147483633,0)
+gui.F_Line.txtNotes.create(textboxm)
+gui.F_Line.txtNotes.text("")
+gui.F_Line.txtNotes.visible(True)
+gui.F_Line.txtNotes.size(7300,600)
+gui.F_Line.txtNotes.zorder(0)
+gui.F_Line.txtNotes.position(100,900)
+gui.F_Line.txtNotes.enabled(True)
+gui.F_Line.txtNotes.alignment(0)
+gui.F_Line.txtNotes.fontname("Arial")
+gui.F_Line.txtNotes.fontsize(8)
+gui.F_Line.txtNotes.BackColor(-2147483643)
+gui.F_Line.cmdSave.create(button)
+gui.F_Line.cmdSave.caption("Save")
+gui.F_Line.cmdSave.visible(True)
+gui.F_Line.cmdSave.size(855,375)
+gui.F_Line.cmdSave.zorder(0)
+gui.F_Line.cmdSave.position(100,1600)
+gui.F_Line.cmdSave.enabled(True)
+gui.F_Line.cmdSave.fontname("Arial")
+gui.F_Line.cmdSave.fontsize(8)
+gui.F_Line.cmdSave.event(click,cmdlinesave_click)
+gui.F_Line.lblAccept.create(label,"REJECT",False,1935,255,1,7500,350,True,0,Arial,8,-2147483633,0)
+gui.F_Line.lblAccept.event(click,lblaccept_click)
+gui.F_Line.txtSample.tabstop(True)
+gui.F_Line.txtSample.tabindex(1)
+gui.F_Line.txtType.tabstop(True)
+gui.F_Line.txtType.tabindex(2)
+gui.F_Line.txtReq.tabstop(True)
+gui.F_Line.txtReq.tabindex(3)
+gui.F_Line.txtTol.tabstop(True)
+gui.F_Line.txtTol.tabindex(4)
+gui.F_Line.txtAct.tabstop(True)
+gui.F_Line.txtAct.tabindex(5)
+gui.F_Line.txtGauge.tabstop(True)
+gui.F_Line.txtGauge.tabindex(6)
+gui.F_Line.txtNotes.tabstop(True)
+gui.F_Line.txtNotes.tabindex(8)
+gui.F_Line.cmdSave.tabstop(True)
+gui.F_Line.cmdSave.tabindex(9)
+
+
+gui.F_Pass..create
+gui.F_Pass..caption("Enter Password")
+gui.F_Pass..size(3100,1890)
+gui.F_Pass..position(0,0)
+gui.F_Pass..event(unload,f_pass_unload)
+gui.F_Pass..alwaysontop(False)
+gui.F_Pass..fontname("Arial")
+gui.F_Pass..fontsize(8)
+gui.F_Pass..forecolor(0)
+gui.F_Pass..fontstyle(,,,,)
+gui.F_Pass..BackColor(-2147483633)
+gui.F_Pass..controlbox(True)
+gui.F_Pass..maxbutton(False)
+gui.F_Pass..minbutton(True)
+gui.F_Pass..mousepointer(0)
+gui.F_Pass..moveable(True)
+gui.F_Pass..sizeable(False)
+gui.F_Pass..ShowInTaskBar(True)
+gui.F_Pass..titlebar(True)
+gui.F_Pass.txtPass.create(textbox,"",True,2750,300,0,100,600,True,0,Arial,8,-2147483643,1)
+gui.F_Pass.cmdAR.create(button)
+gui.F_Pass.cmdAR.caption("ACCEPT")
+gui.F_Pass.cmdAR.visible(True)
+gui.F_Pass.cmdAR.size(855,375)
+gui.F_Pass.cmdAR.zorder(0)
+gui.F_Pass.cmdAR.position(100,1000)
+gui.F_Pass.cmdAR.enabled(True)
+gui.F_Pass.cmdAR.fontname("Arial")
+gui.F_Pass.cmdAR.fontsize(8)
+gui.F_Pass.cmdAR.event(click,cmdar_click)
+gui.F_Pass.lblCommand.create(label,"Label",True,2775,465,1,100,100,True,0,Arial,8,-2147483633,0)
+gui.F_Pass.cmdCancel.create(button)
+gui.F_Pass.cmdCancel.caption("Cancel")
+gui.F_Pass.cmdCancel.visible(True)
+gui.F_Pass.cmdCancel.size(855,375)
+gui.F_Pass.cmdCancel.zorder(0)
+gui.F_Pass.cmdCancel.position(1100,1000)
+gui.F_Pass.cmdCancel.enabled(True)
+gui.F_Pass.cmdCancel.fontname("Arial")
+gui.F_Pass.cmdCancel.fontsize(8)
+gui.F_Pass.cmdCancel.event(click,f_pass_unload)
+
+
+Program.Sub.ScreenSU.End
+
+Program.Sub.Preflight.Start
+
+Variable.UDT.Header.Define("Inspect_No",Long)
+Variable.UDT.Header.Define("Job",String)
+Variable.UDT.Header.Define("Suffix",String)
+Variable.UDT.Header.Define("Seq",String)
+Variable.UDT.Header.Define("Date",Date)
+Variable.UDT.Header.Define("Emp_No",String)
+Variable.UDT.Header.Define("Emp_Name",String)
+Variable.UDT.Header.Define("WC",String)
+Variable.UDT.Header.Define("WC_Desc",String)
+Variable.UDT.Header.Define("Part_No",String)
+Variable.UDT.Header.Define("Loc",String)
+Variable.UDT.Header.Define("Part_Desc",String)
+Variable.uGlobal.uHeader.Declare("Header")
+Variable.Global.bPass.Declare(Boolean,False)
+Variable.Global.iR.Declare(Long,-1)
+Program.Sub.Preflight.End
+
+Program.Sub.Main.Start
+'Hook 15880
+V.Local.iC.Declare(Long)
+V.Local.sJob.Declare(String)
+V.Local.sTemp.Declare(String)
+
+F.ODBC.Connection!conx.OpenConnection(V.Ambient.PDSN,V.Ambient.PUser,V.Ambient.PPass)
+'F.Intrinsic.Debug.InvokeDebugger
+F.Intrinsic.Control.If(V.Caller.Hook,=,15880)
+	V.Local.sJob.Set(V.Passed.000004.Trim)
+	F.Intrinsic.String.LPad(V.Passed.000005.Trim,"0",6,V.Local.sTemp)
+	V.uGlobal.uHeader!Seq.Set(V.Local.sTemp)
+	V.uGlobal.uHeader!Emp_No.Set(V.Passed.009993.Trim)
+	V.uGlobal.uHeader!Emp_Name.Set(V.Passed.009994.Trim)
+	V.uGlobal.uHeader!WC.Set(V.Passed.009996.Trim)
+F.Intrinsic.Control.Else
+	V.Local.sJob.Set("500005-008")
+	V.uGlobal.uHeader!Seq.Set("005000")
+	V.uGlobal.uHeader!Emp_No.Set("00003")
+	V.uGlobal.uHeader!Emp_Name.Set("JOHN TOVAR")
+	V.uGlobal.uHeader!WC.Set("ASY1")
+'	V.uGlobal.uHeader!WC_Desc.Set("ASSEMLY BENCH #1")
+'	V.uGlobal.uHeader!Part_No.Set("210900-5")
+'	V.uGlobal.uHeader!Loc.Set("")
+'	V.uGlobal.uHeader!Part_Desc.Set("BOTTOM")
+F.Intrinsic.Control.EndIf
+
+V.uGlobal.uHeader!Date.Set(V.Ambient.Now)
+F.Intrinsic.String.Split(V.Local.sJob,"-",V.Local.sJob)
+F.Intrinsic.String.LPad(V.Local.sJob(0).Trim,"0",6,V.Local.sJob(0))
+V.uGlobal.uHeader!Job.Set(V.Local.sJob(0))
+F.Intrinsic.Control.If(V.Local.sJob.UBound,>,0)
+	F.Intrinsic.Control.If(V.Local.sJob(1).Trim,<>,"")
+		F.Intrinsic.String.LPad(V.Local.sJob(1).Trim,"0",3,V.Local.sJob(1))
+		V.uGlobal.uHeader!Suffix.Set(V.Local.sJob(1))
+	F.Intrinsic.Control.Else
+		V.uGlobal.uHeader!Suffix.Set("")
+	F.Intrinsic.Control.EndIf
+F.Intrinsic.Control.Else
+	V.uGlobal.uHeader!Suffix.Set("")
+F.Intrinsic.Control.EndIf
+
+
+F.Intrinsic.Debug.Stop
+F.Intrinsic.Control.CallSub("GetInfo")
+F.Intrinsic.Control.CallSub("CheckInspection")
+
+Gui.F_Inspection.gsfgInspect.Rows(2)
+Gui.F_Inspection.gsfgInspect.Cols(10)
+Gui.F_Inspection.gsfgInspect.Textmatrix(0,0,"Sample")
+Gui.F_Inspection.gsfgInspect.ColWidth(0,700)
+Gui.F_Inspection.gsfgInspect.Textmatrix(1,0,"Type/Loc")
+Gui.F_Inspection.gsfgInspect.ColWidth(1,1000)
+Gui.F_Inspection.gsfgInspect.Textmatrix(2,0,"Req. Dim.")
+Gui.F_Inspection.gsfgInspect.ColWidth(2,850)
+Gui.F_Inspection.gsfgInspect.Textmatrix(3,0,"Tol.")
+Gui.F_Inspection.gsfgInspect.ColWidth(3,750)
+Gui.F_Inspection.gsfgInspect.Textmatrix(4,0,"Act. Dim.")
+Gui.F_Inspection.gsfgInspect.ColWidth(4,850)
+Gui.F_Inspection.gsfgInspect.Textmatrix(5,0,"Gauge")
+Gui.F_Inspection.gsfgInspect.ColWidth(5,600)
+Gui.F_Inspection.gsfgInspect.Textmatrix(6,0,"A/R")
+Gui.F_Inspection.gsfgInspect.ColWidth(6,800)
+Gui.F_Inspection.gsfgInspect.Textmatrix(7,0,"Notes")
+Gui.F_Inspection.gsfgInspect.ColWidth(7,2000)
+Gui.F_Inspection.gsfgInspect.Textmatrix(8,0,"")
+Gui.F_Inspection.gsfgInspect.ColWidth(8,0)
+Gui.F_Inspection.gsfgInspect.Textmatrix(9,0,"")
+Gui.F_Inspection.gsfgInspect.ColWidth(9,0)
+
+F.Intrinsic.Control.For(V.Local.iC,0,7,1)
+	Gui.F_Inspection.gsfgInspect.BuildStyle(1,V.Local.iC,"format","alignment","2")
+	Gui.F_Inspection.gsfgInspect.BuildStyle(1,V.Local.iC,"type","locked","true")
+F.Intrinsic.Control.Next(V.Local.iC)
+'Gui.F_Inspection.gsfgInspect.BuildStyle(1,6,"type","locked","true")
+Gui.F_Inspection.gsfgInspect.BuildStyle(1,6,"color","fore","8421504")
+'Gui.F_Inspection.gsfgInspect.BuildStyle(1,7,"type","MultiLine","true")
+
+F.Intrinsic.Control.For(V.Local.iC,0,7,1)
+	Gui.F_Inspection.gsfgInspect.BuildStyle(2,V.Local.iC,"format","alignment","2")
+	Gui.F_Inspection.gsfgInspect.BuildStyle(2,V.Local.iC,"type","locked","true")
+F.Intrinsic.Control.Next(V.Local.iC)
+Gui.F_Inspection.gsfgInspect.BuildStyle(2,6,"color","fore","255")
+'Gui.F_Inspection.gsfgInspect.BuildStyle(2,7,"type","MultiLine","true")
+
+Gui.F_Inspection.gsfgInspect.FixedRows(1)
+
+Gui.F_Inspection.gsfgInspect.TextMatrix(6,1,"REJECT")
+Gui.F_Inspection.gsfgInspect.TextMatrix(8,1,"0")
+Gui.F_Inspection.gsfgInspect.ApplyStyle(1,1)
+
+'Gui.F_Inspection.gsfgInspect.TextMatrix(0,2,"*")
+'Gui.F_Inspection.gsfgInspect.TextMatrix(8,2,"0")
+'Gui.F_Inspection.gsfgInspect.ApplyStyle(2,1)
+
+F.Intrinsic.Control.CallSub("Load")
+
+
+
+Program.Sub.Main.End
+
+program.sub.f_inspection_unload.start
+'F.Intrinsic.Debug.DumpVariableList
+F.ODBC.Connection!conx.Close
+F.Intrinsic.Control.end
+
+program.sub.f_inspection_unload.end
+
+program.sub.f_inspection_resize.start
+V.Local.iWidth.Declare(Long)
+V.Local.iHeight.Declare(Long)
+V.Local.gWidth.Declare(Long)
+
+F.Intrinsic.Control.If(V.Screen.F_Inspection.width,<,8550)
+	Gui.F_Inspection..Size(8550,V.Screen.F_Inspection.Height)
+F.Intrinsic.Control.EndIf
+F.Intrinsic.Control.If(V.Screen.F_Inspection.Height,<,4800)
+	Gui.F_Inspection..Size(V.Screen.F_Inspection.Width,4800)
+F.Intrinsic.Control.EndIf
+
+F.Intrinsic.Math.Sub(V.Screen.F_Inspection.Height,3200,V.Local.iHeight)
+F.Intrinsic.Math.Sub(V.Screen.F_Inspection.Width,650,V.Local.iWidth)
+Gui.F_Inspection.gsfgInspect.Size(V.Local.iWidth,V.Local.iHeight)
+
+F.Intrinsic.Math.Add(V.Local.iHeight,2100,V.Local.iHeight)
+Gui.F_Inspection.cmdSave.Position(V.Screen.F_Inspection!cmdSave.Left,V.Local.iHeight)
+Gui.F_Inspection.cmdAdd.Position(V.Screen.F_Inspection!cmdAdd.Left,V.Local.iHeight)
+
+F.Intrinsic.Control.If(V.Screen.F_Inspection!gsfgInspect.Width,>,7900)
+	F.Intrinsic.Math.Add(V.Screen.F_Inspection!gsfgInspect.Width,-350,V.Local.gWidth)
+	F.Intrinsic.Math.Mult(V.Local.gWidth,0.0927152,V.Local.iWidth)
+	Gui.F_Inspection.gsfgInspect.ColWidth(0,V.Local.iWidth)
+	F.Intrinsic.Math.Mult(V.Local.gWidth,0.1324503,V.Local.iWidth)
+	Gui.F_Inspection.gsfgInspect.ColWidth(1,V.Local.iWidth)
+	F.Intrinsic.Math.Mult(V.Local.gWidth,0.1125828,V.Local.iWidth)
+	Gui.F_Inspection.gsfgInspect.ColWidth(2,V.Local.iWidth)
+	Gui.F_Inspection.gsfgInspect.ColWidth(4,V.Local.iWidth)
+	F.Intrinsic.Math.Mult(V.Local.gWidth,0.0993378,V.Local.iWidth)
+	Gui.F_Inspection.gsfgInspect.ColWidth(3,V.Local.iWidth)
+	F.Intrinsic.Math.Mult(V.Local.gWidth,0.0794702,V.Local.iWidth)
+	Gui.F_Inspection.gsfgInspect.ColWidth(5,V.Local.iWidth)
+	F.Intrinsic.Math.Mult(V.Local.gWidth,0.1059603,V.Local.iWidth)
+	Gui.F_Inspection.gsfgInspect.ColWidth(6,V.Local.iWidth)
+	F.Intrinsic.Math.Mult(V.Local.gWidth,0.2649007,V.Local.iWidth)
+	Gui.F_Inspection.gsfgInspect.ColWidth(7,V.Local.iWidth)
+F.Intrinsic.Control.Else
+	Gui.F_Inspection.gsfgInspect.ColWidth(0,700)
+	Gui.F_Inspection.gsfgInspect.ColWidth(1,1000)
+	Gui.F_Inspection.gsfgInspect.ColWidth(2,850)
+	Gui.F_Inspection.gsfgInspect.ColWidth(3,750)
+	Gui.F_Inspection.gsfgInspect.ColWidth(4,850)
+	Gui.F_Inspection.gsfgInspect.ColWidth(5,600)
+	Gui.F_Inspection.gsfgInspect.ColWidth(6,800)
+	Gui.F_Inspection.gsfgInspect.ColWidth(7,2000)
+F.Intrinsic.Control.EndIf
+
+program.sub.f_inspection_resize.end
+
+Program.Sub.Load.Start
+V.Local.sQuery.Declare(String)
+
+F.Intrinsic.Control.CallSub("NewInspection")
+
+F.Intrinsic.Control.If(V.uGlobal.uHeader!Inspect_No.Trim,=,-1)
+	Gui.F_Inspection.txtInsp_No.Text("[Auto Num]")
+F.Intrinsic.Control.Else
+	Gui.F_Inspection.txtInsp_No.Text(V.uGlobal.uHeader!Inspect_No.Trim)
+F.Intrinsic.Control.EndIf
+Gui.F_Inspection.txtJob.Text(V.uGlobal.uHeader!Job.Trim)
+Gui.F_Inspection.txtSuffix.Text(V.uGlobal.uHeader!Suffix.Trim)
+Gui.F_Inspection.txtSeq.Text(V.uGlobal.uHeader!Seq.Trim)
+Gui.F_Inspection.dtpDate.Value(V.uGlobal.uHeader!Date)
+Gui.F_Inspection.txtEmpNo.Text(V.uGlobal.uHeader!Emp_No.Trim)
+Gui.F_Inspection.txtEmpName.Text(V.uGlobal.uHeader!Emp_Name.Trim)
+Gui.F_Inspection.txtWC.Text(V.uGlobal.uHeader!WC.Trim)
+Gui.F_Inspection.txtWCDescr.Text(V.uGlobal.uHeader!WC_Desc.Trim)
+Gui.F_Inspection.txtPartNo.Text(V.uGlobal.uHeader!Part_No.Trim)
+Gui.F_Inspection.txtLoc.Text(V.uGlobal.uHeader!Loc.Trim)
+Gui.F_Inspection.txtPartDescr.Text(V.uGlobal.uHeader!Part_Desc.Trim)
+
+Gui.F_Inspection..Show
+
+Program.Sub.Load.End
+
+Program.Sub.CheckInspection.Start
+V.Local.sQuery.Declare(String)
+
+F.Intrinsic.String.Concat("SELECT * FROM ATG_3696_WC_MAINT WHERE WC='",V.uGlobal.uHeader!WC.Trim,"' AND INSP_FLAG='Y'",V.Local.sQuery)
+F.ODBC.Connection!conx.OpenRecordsetRO("rstCheck",V.Local.sQuery)
+F.Intrinsic.Control.If(V.ODBC.conx!rstCheck.EOF,=,True)
+	F.ODBC.conx!rstCheck.Close
+	F.Intrinsic.Control.CallSub("f_inspection_unload")
+F.Intrinsic.Control.EndIf
+F.ODBC.conx!rstCheck.Close
+
+F.Intrinsic.String.Concat("SELECT * FROM ATG_3696_WC_MAINT WHERE PART_NO='",V.uGlobal.uHeader!Part_No.trim,"' AND LOC='",V.uGlobal.uHeader!Loc.Trim,"' AND INSP_FLAG='Y'",V.Local.sQuery)
+F.ODBC.Connection!conx.OpenRecordsetRO("rstCheck",V.Local.sQuery)
+F.Intrinsic.Control.If(V.ODBC.conx!rstCheck.EOF,=,True)
+	F.ODBC.conx!rstCheck.Close
+	F.Intrinsic.Control.CallSub("f_inspection_unload")
+F.Intrinsic.Control.EndIf
+F.ODBC.conx!rstCheck.Close
+
+
+
+Program.Sub.CheckInspection.End
+
+program.sub.cmdsave_click.start
+V.Local.sRow.Declare(String)
+V.Local.iR.Declare(Long)
+V.Local.iRows.Declare(Long)
+
+'F.Intrinsic.Math.Add(V.Screen.F_Inspection!gsfgInspect.Rows,-1,V.Local.iRows)
+'
+'F.ODBC.Connection!conx.OpenRecordsetRW("rstInspLines","SELECT * FROM ATG_INSPECTION_L")
+'F.Intrinsic.Control.For(V.Local.iR,1,V.Local.iRows,1)
+'	Gui.F_Inspection.gsfgInspect.ReadRow(V.Local.iR,V.Local.sRow)
+'	F.Intrinsic.String.Split(V.Local.sRow,"*!*",V.Local.sRow)
+'
+'	F.odbc.conx!rstInspLines.addnew
+'	F.ODBC.conx!rstInspLines.Set!INSP_NO(V.Screen.F_Inspection!txtInsp_No.Text)
+'	F.ODBC.conx!rstInspLines.Set!SEQ(V.Local.iR)
+'	F.ODBC.conx!rstInspLines.Set!SAMPLE_ID(V.Local.sRow(0))
+'	F.ODBC.conx!rstInspLines.Set!TYPE_LOC(V.Local.sRow(1))
+'	F.ODBC.conx!rstInspLines.Set!REQ_DIM(V.Local.sRow(2))
+'	F.ODBC.conx!rstInspLines.Set!TOL(V.Local.sRow(3))
+'	F.ODBC.conx!rstInspLines.Set!ACT_DIM(V.Local.sRow(4))
+'	F.ODBC.conx!rstInspLines.Set!GAUGE(V.Local.sRow(5))
+'	F.Intrinsic.Control.If(V.Local.sRow(8),=,1)
+'		F.ODBC.conx!rstInspLines.Set!ACPT_REJ("A")
+'	F.Intrinsic.Control.Else
+'		F.ODBC.conx!rstInspLines.Set!ACPT_REJ("R")
+'	F.Intrinsic.Control.EndIf
+'	F.ODBC.conx!rstInspLines.Set!NOTES(V.Local.sRow(7))
+'	F.odbc.conx!rstInspLines.Update
+'F.Intrinsic.Control.Next(V.Local.iR)
+'F.ODBC.conx!rstInspLines.Close
+'
+F.Intrinsic.Control.CallSub("f_inspection_unload")
+
+program.sub.cmdsave_click.end
+
+program.sub.cmdadd_click.start
+V.Local.iRows.Declare(Long)
+V.Local.sTemp.Declare(String)
+V.Local.sRow.Declare(String)
+
+F.Intrinsic.Math.Add(V.Screen.F_Inspection!gsfgInspect.Rows,-1,V.Local.iRows)
+Gui.F_Inspection.gsfgInspect.GetTextmatrix(0,V.Local.iRows,V.Local.sTemp)
+F.Intrinsic.Control.If(V.Local.sTemp,<>,"")
+	F.Intrinsic.Math.Add(V.Screen.F_Inspection!gsfgInspect.Rows,1,V.Local.iRows)
+	Gui.F_Inspection.gsfgInspect.Rows(V.Local.iRows)
+	F.Intrinsic.Math.Add(V.Local.iRows,-1,V.Local.iRows)
+	Gui.F_Inspection.gsfgInspect.TextMatrix(6,V.Local.iRows,"REJECT")
+	Gui.F_Inspection.gsfgInspect.TextMatrix(8,V.Local.iRows,"1")
+	Gui.F_Inspection.gsfgInspect.TextMatrix(9,V.Local.iRows,"False")
+	Gui.F_Inspection.gsfgInspect.ApplyStyle(V.Local.iRows,1)
+'	Gui.F_Inspection.gsfgInspect.Rows(1)
+F.Intrinsic.Control.Else
+	F.Intrinsic.UI.Msgbox("Please complete current row")
+F.Intrinsic.Control.EndIf
+
+program.sub.cmdadd_click.end
+
+Program.Sub.NewInspection.Start
+V.Local.sQuery.Declare(String)
+
+F.Intrinsic.String.Concat("SELECT TOP 1 * FROM ATG_3696_INSP_H WHERE EMP_NO='",V.uGlobal.uHeader!Emp_No.Trim,"' ORDER BY INSP_NO DESC",V.Local.sQuery)
+F.ODBC.Connection!conx.OpenRecordsetRW("rstAddNew",V.Local.sQuery)
+F.ODBC.conx!rstAddNew.AddNew
+F.ODBC.conx!rstAddNew.Set!WO(V.uGlobal.uHeader!Job.Trim)
+F.ODBC.conx!rstAddNew.Set!SUFFIX(V.uGlobal.uHeader!Suffix.Trim)
+F.ODBC.conx!rstAddNew.Set!SEQ(V.uGlobal.uHeader!Seq.Trim)
+F.ODBC.conx!rstAddNew.Set!INSP_DATE(V.uGlobal.uHeader!Date.Trim)
+F.ODBC.conx!rstAddNew.Set!EMP_NO(V.uGlobal.uHeader!Emp_No.Trim)
+F.ODBC.conx!rstAddNew.Set!EMP_NAME(V.uGlobal.uHeader!Emp_Name.Trim)
+F.ODBC.conx!rstAddNew.Set!WC(V.uGlobal.uHeader!WC.Trim)
+F.ODBC.conx!rstAddNew.Set!WC_DESC(V.uGlobal.uHeader!WC_Desc.Trim)
+F.ODBC.conx!rstAddNew.Set!PART_NO(V.uGlobal.uHeader!Part_No.Trim)
+F.ODBC.conx!rstAddNew.Set!PART_DESC(V.uGlobal.uHeader!Part_Desc.Trim)
+F.ODBC.conx!rstAddNew.Update
+F.ODBC.conx!rstAddNew.Close
+
+F.ODBC.Connection!conx.OpenRecordsetRW("rstAddNew",V.Local.sQuery)
+F.Intrinsic.Control.If(V.ODBC.conx!rstAddNew.EOF,<>,True)
+	V.uGlobal.uHeader!Inspect_No.Set(V.ODBC.conx!rstAddNew.FieldValTrim!INSP_NO)
+F.Intrinsic.Control.Else
+	V.uGlobal.uHeader!Inspect_No.Set(-1)
+F.Intrinsic.Control.EndIf
+F.ODBC.conx!rstAddNew.Close
+
+Program.Sub.NewInspection.End
+
+program.sub.f_line_unload.start
+Gui.F_Line..Visible(False)
+Gui.F_Inspection..Enabled(True)
+F.Intrinsic.Control.CallSub("ClearLine")
+
+program.sub.f_line_unload.end
+
+program.sub.cmdlinesave_click.start
+V.Local.sQuery.Declare(String)
+V.Local.iR.Declare(Long)
+
+F.Intrinsic.Control.CallSub("AcceptReject")
+
+F.Intrinsic.Control.If(V.Screen.F_Line!txtSample.Text,=,"")
+	F.Intrinsic.UI.Msgbox("Please complete Sample")
+	F.Intrinsic.Control.ExitSub
+F.Intrinsic.Control.EndIf
+F.Intrinsic.Control.If(V.Screen.F_Line!txtAct.Text,=,"")
+	F.Intrinsic.UI.Msgbox("Please complete Sample")
+	F.Intrinsic.Control.ExitSub
+F.Intrinsic.Control.EndIf
+F.Intrinsic.Control.If(V.Screen.F_Line!txtTol.Text,=,"")
+	F.Intrinsic.UI.Msgbox("Please complete Sample")
+	F.Intrinsic.Control.ExitSub
+F.Intrinsic.Control.EndIf
+F.Intrinsic.Control.If(V.Screen.F_Line!txtReq.Text,=,"")
+	F.Intrinsic.UI.Msgbox("Please complete Sample")
+	F.Intrinsic.Control.ExitSub
+F.Intrinsic.Control.EndIf
+F.Intrinsic.Control.If(V.Screen.F_Line!txtGauge.Text,=,"")
+	F.Intrinsic.UI.Msgbox("Please complete Sample")
+	F.Intrinsic.Control.ExitSub
+F.Intrinsic.Control.EndIf
+'F.Intrinsic.Debug.InvokeDebugger
+F.Intrinsic.Debug.Stop
+F.Intrinsic.Control.If(V.Screen.F_Line!txtSample.Text,<>,"")
+	F.Intrinsic.String.Concat("SELECT * FROM ATG_3696_INSP_L WHERE INSP_NO=",V.Screen.F_Inspection!txtInsp_No.Text," AND SEQ=",V.Screen.F_Line!txtSample.MetaData1,V.Local.sQuery)
+	F.ODBC.Connection!conx.OpenRecordsetRW("rstLine",V.Local.sQuery)
+	F.Intrinsic.Control.If(V.ODBC.conx!rstLine.EOF,=,True)
+		F.ODBC.conx!rstLine.AddNew
+		F.ODBC.conx!rstLine.Set!INSP_NO(V.Screen.F_Inspection!txtInsp_No.Text)
+		F.ODBC.conx!rstLine.Set!SEQ(V.Screen.F_Line!txtSample.MetaData1)
+	F.Intrinsic.Control.EndIf
+	F.ODBC.conx!rstLine.Set!SAMPLE_ID(V.Screen.F_Line!txtSample.Text)
+	F.ODBC.conx!rstLine.Set!TYPE_LOC(V.Screen.F_Line!txtType.Text)
+	F.ODBC.conx!rstLine.Set!REQ_DIM(V.Screen.F_Line!txtReq.Text)
+	F.ODBC.conx!rstLine.Set!TOL(V.Screen.F_Line!txtTol.Text)
+	F.ODBC.conx!rstLine.Set!ACT_DIM(V.Screen.F_Line!txtAct.Text)
+	F.ODBC.conx!rstLine.Set!GAUGE(V.Screen.F_Line!txtGauge.Text)
+	F.Intrinsic.Control.If(V.Screen.F_Line!lblAccept.ForeColor,=,255)
+		F.ODBC.conx!rstLine.Set!ACPT_REJ("A")
+	F.Intrinsic.Control.Else
+		F.ODBC.conx!rstLine.Set!ACPT_REJ("R")
+	F.Intrinsic.Control.EndIf
+	F.ODBC.conx!rstLine.Set!NOTES(V.Screen.F_Line!txtNotes.Text)
+
+	F.ODBC.conx!rstLine.Update
+	F.ODBC.conx!rstLine.Close
+F.Intrinsic.Control.EndIf
+
+V.Local.iR.Set(V.Screen.F_Line!txtSample.MetaData1)
+Gui.F_Inspection.gsfgInspect.TextMatrix(0,V.Local.iR,V.Screen.F_Line!txtSample.Text)
+Gui.F_Inspection.gsfgInspect.TextMatrix(1,V.Local.iR,V.Screen.F_Line!txtType.Text)
+Gui.F_Inspection.gsfgInspect.TextMatrix(2,V.Local.iR,V.Screen.F_Line!txtReq.Text)
+Gui.F_Inspection.gsfgInspect.TextMatrix(3,V.Local.iR,V.Screen.F_Line!txtTol.Text)
+Gui.F_Inspection.gsfgInspect.TextMatrix(4,V.Local.iR,V.Screen.F_Line!txtAct.Text)
+Gui.F_Inspection.gsfgInspect.TextMatrix(5,V.Local.iR,V.Screen.F_Line!txtGauge.Text)
+Gui.F_Inspection.gsfgInspect.TextMatrix(6,V.Local.iR,"ACCEPT")
+Gui.F_Inspection.gsfgInspect.TextMatrix(7,V.Local.iR,V.Screen.F_Line!txtNotes.Text)
+F.Intrinsic.Control.If(V.Screen.F_Line!txtSample.MetaData0,=,"True")
+	Gui.F_Inspection.gsfgInspect.TextMatrix(9,V.Local.iR,"True")
+F.Intrinsic.Control.Else
+	Gui.F_Inspection.gsfgInspect.TextMatrix(9,V.Local.iR,"False")
+F.Intrinsic.Control.EndIf
+
+F.Intrinsic.Control.If(V.Screen.F_Line!lblAccept.ForeColor,=,255)
+	Gui.F_Inspection.gsfgInspect.TextMatrix(8,V.Local.iR,"2")
+	Gui.F_Inspection.gsfgInspect.TextMatrix(6,V.Local.iR,"ACCEPT")
+	Gui.F_Inspection.gsfgInspect.ApplyStyle(V.Local.iR,2)
+F.Intrinsic.Control.Else
+	Gui.F_Inspection.gsfgInspect.TextMatrix(8,V.Local.iR,"1")
+	Gui.F_Inspection.gsfgInspect.TextMatrix(6,V.Local.iR,"REJECT")
+	Gui.F_Inspection.gsfgInspect.ApplyStyle(V.Local.iR,1)
+F.Intrinsic.Control.EndIf
+
+F.Intrinsic.Control.CallSub("f_line_unload")
+
+program.sub.cmdlinesave_click.end
+
+program.sub.gsfginspect_cellenter.start
+V.Local.sRow.Declare(String)
+V.Local.iR.Declare(Long)
+
+F.Intrinsic.Control.If(V.Args.key,>,0)
+'	F.Intrinsic.Control.If(V.Args.key,=,2)
+'		Gui.F_Inspection.gsfgInspect.GetTextMatrix(0,1,V.Local.sRow)
+'		F.Intrinsic.Control.ExitSub
+'	F.Intrinsic.Control.EndIf
+	Gui.F_Inspection..Enabled(False)
+	Gui.F_Inspection.gsfgInspect.GetTextMatrix(0,V.Args.key,V.Local.sRow)
+	V.Global.bPass.Set(False)
+	F.Intrinsic.Control.If(V.Local.sRow,<>,"")
+		Gui.F_Inspection..Enabled(False)
+		Gui.F_Pass.txtPass.Text("")
+		Gui.F_Pass.txtPass.PasswordChar("*")
+		Gui.F_Pass.cmdAR.Caption("OK")
+		Gui.F_Pass.lblCommand.Caption("Please enter supervisor password to edit sample.")
+		V.Global.iR.Set(V.Args.key)
+		Gui.F_Pass..Show
+	F.Intrinsic.Control.Else
+		F.Intrinsic.Control.CallSub("ClearLine")
+		Gui.F_Line.txtSample.SetMetaData("False",V.Args.key)
+		F.Intrinsic.Control.CallSub("AcceptReject")
+		Gui.F_Line..Show
+	F.Intrinsic.Control.EndIf
+F.Intrinsic.Control.EndIf
+
+program.sub.gsfginspect_cellenter.end
+
+Program.Sub.ClearLine.Start
+Gui.F_Line.txtSample.Text("")
+Gui.F_Line.txtSample.ClearMetadata
+Gui.F_Line.txtType.Text("")
+Gui.F_Line.txtReq.Text("0.00000")
+Gui.F_Line.txtTol.Text("")
+Gui.F_Line.txtAct.Text("0.00000")
+Gui.F_Line.txtGauge.Text("")
+Gui.F_Line.lblAccept.Caption("REJECT")
+Gui.F_Line.txtNotes.Text("")
+Gui.F_Line.lblAccept.ForeColor(8421504)
+
+Program.Sub.ClearLine.End
+
+Program.Sub.AcceptReject.Start
+V.Local.fAct.Declare(Float)
+V.Local.fReq.Declare(Float)
+V.Local.fTol.Declare(Float)
+V.Local.fTemp.Declare(Float)
+V.Local.fBottom.Declare(Float)
+V.Local.fTop.Declare(Float)
+'F.Intrinsic.Debug.InvokeDebugger
+F.Intrinsic.Debug.Stop
+
+F.Intrinsic.Control.If(V.Screen.F_Line!txtSample.MetaData0,<>,True)
+	F.Intrinsic.Control.If(V.Screen.F_Line!txtTol.Text,<>,"")
+		V.Local.fAct.Set(V.Screen.F_Line!txtAct.Text)
+		V.Local.fReq.Set(V.Screen.F_Line!txtReq.Text)
+		V.Local.fTol.Set(V.Screen.F_Line!txtTol.Text)
+		
+		F.Intrinsic.Math.Add(V.Local.fReq,V.Local.fTol,V.Local.fTop)
+		F.Intrinsic.Math.Sub(V.Local.fReq,V.Local.fTol,V.Local.fBottom)
+		F.Intrinsic.Control.If(V.Local.fAct,>=,V.Local.fBottom)
+			F.Intrinsic.Control.If(V.Local.fTop,>=,V.Local.fAct)
+				Gui.F_Line.lblAccept.ForeColor(255)
+				Gui.F_Line.lblAccept.Caption("ACCEPT")
+			F.Intrinsic.Control.Else
+				Gui.F_Line.lblAccept.ForeColor(8421504)
+				Gui.F_Line.lblAccept.Caption("REJECT")
+			F.Intrinsic.Control.Endif
+		F.Intrinsic.Control.Else
+			Gui.F_Line.lblAccept.ForeColor(8421504)
+			Gui.F_Line.lblAccept.Caption("REJECT")
+		F.Intrinsic.Control.Endif
+	F.Intrinsic.Control.EndIf
+F.Intrinsic.Control.EndIf
+
+Program.Sub.AcceptReject.End
+
+program.sub.txtreq_lostfocus.start
+V.Local.sTemp.Declare(String)
+
+F.Intrinsic.String.Format(V.Screen.F_Line!txtReq.Text,"###0.00000",V.Local.sTemp)
+Gui.F_Line.txtReq.Text(V.Local.sTemp)
+
+F.Intrinsic.Control.CallSub("AcceptReject")
+
+program.sub.txtreq_lostfocus.end
+
+program.sub.txttol_lostfocus.start
+V.Local.sTemp.Declare(String)
+
+F.Intrinsic.String.Format(V.Screen.F_Line!txtTol.Text,"###0.00000",V.Local.sTemp)
+Gui.F_Line.txtTol.Text(V.Local.sTemp)
+
+F.Intrinsic.Control.CallSub("AcceptReject")
+
+program.sub.txttol_lostfocus.end
+
+program.sub.txtact_lostfocus.start
+V.Local.sTemp.Declare(String)
+
+F.Intrinsic.String.Format(V.Screen.F_Line!txtAct.Text,"###0.00000",V.Local.sTemp)
+Gui.F_Line.txtAct.Text(V.Local.sTemp)
+
+F.Intrinsic.Control.CallSub("AcceptReject")
+
+program.sub.txtact_lostfocus.end
+
+program.sub.txtreq_gotfocus.start
+Gui.F_Line.txtReq.SelectAll
+
+program.sub.txtreq_gotfocus.end
+
+program.sub.txttol_gotfocus.start
+Gui.F_Line.txtTol.SelectAll
+
+program.sub.txttol_gotfocus.end
+
+program.sub.txttype_gotfocus.start
+Gui.F_Line.txtType.SelectAll
+
+program.sub.txttype_gotfocus.end
+
+program.sub.txtact_gotfocus.start
+Gui.F_Line.txtAct.SelectAll
+
+program.sub.txtact_gotfocus.end
+
+program.sub.txtgauge_gotfocus.start
+Gui.F_Line.txtGauge.SelectAll
+
+program.sub.txtgauge_gotfocus.end
+
+program.sub.txtsample_gotfocus.start
+Gui.F_Line.txtSample.SelectAll
+
+program.sub.txtsample_gotfocus.end
+
+program.sub.lblaccept_click.start
+V.Local.sType.Declare(String)
+F.Intrinsic.Control.If(V.Screen.F_Line!lblAccept.ForeColor,=,255)
+	V.Local.sType.Set("REJECT")
+F.Intrinsic.Control.Else
+	V.Local.sType.Set("ACCEPT")
+F.Intrinsic.Control.EndIf
+
+F.Intrinsic.Control.If(V.Global.bPass,=,False)
+	Gui.F_Line..Enabled(False)
+	Gui.F_Pass.txtPass.Text("")
+	Gui.F_Pass.txtPass.PasswordChar("*")
+	Gui.F_Pass.cmdAR.Caption(V.Local.sType)
+	Gui.F_Pass.lblCommand.Caption("Please enter supervisor password to change the A/R value.")
+
+	Gui.F_Pass..Show
+	Gui.F_Pass..AlwaysOnTop(True)
+F.Intrinsic.Control.Else
+	F.Intrinsic.String.Concat("Change the A/R value to ",V.Local.sType,"?",V.Local.sType)
+	F.Intrinsic.UI.Msgbox(V.Local.sType,"Change A/R value",4,V.Local.sType)
+	F.Intrinsic.Control.If(V.Local.sType,=,6)
+		F.Intrinsic.Control.If(V.Screen.F_Line!lblAccept.ForeColor,=,255)
+			Gui.F_Line.lblAccept.ForeColor(8421504)
+			Gui.F_Line.lblAccept.Caption("REJECT")
+		F.Intrinsic.Control.Else
+			Gui.F_Line.lblAccept.ForeColor(255)
+			Gui.F_Line.lblAccept.Caption("ACCEPT")
+		F.Intrinsic.Control.EndIf
+		Gui.F_Line.txtSample.SetMetaData("True",V.Screen.F_Line!txtSample.MetaData1)
+	F.Intrinsic.Control.EndIf
+F.Intrinsic.Control.EndIf
+
+program.sub.lblaccept_click.end
+
+program.sub.f_pass_unload.start
+F.Intrinsic.Control.If(V.Screen.F_Pass!cmdAR.Caption,<>,"OK")
+	Gui.F_Line..Enabled(True)
+F.Intrinsic.Control.Else
+	Gui.F_Inspection..Enabled(True)
+F.Intrinsic.Control.Endif
+Gui.F_Pass..Visible(False)
+V.Global.iR.Set(-1)
+
+program.sub.f_pass_unload.end
+
+program.sub.cmdar_click.start
+V.Local.sCurrPass.Declare(String)
+V.Local.sRow.Declare(String)
+
+F.Intrinsic.Control.If(V.Screen.F_Pass!txtPass.Text,=,"")
+	F.Intrinsic.UI.Msgbox("Please enter password")
+	F.Intrinsic.Control.ExitSub
+F.Intrinsic.Control.EndIf
+
+Gui.F_Pass..Enabled(False)
+F.ODBC.Connection!conx.OpenRecordsetRW("rstPass","SELECT * FROM ATG_3696_INSP_PASS")
+F.Intrinsic.Control.If(V.ODBC.conx!rstPass.EOF,=,True)
+	V.Local.sCurrPass.Set("SUPERVSR")
+F.Intrinsic.Control.else
+	V.Local.sCurrPass.Set(V.ODBC.conx!rstPass.FieldValRTrim!PASS)
+F.Intrinsic.Control.EndIf
+F.ODBC.conx!rstPass.Close
+
+f.Intrinsic.Control.If(V.Screen.F_Pass!txtPass.Text.ucase,<>,V.Local.sCurrPass.UCase)
+	F.Intrinsic.UI.Msgbox("Invalid password")
+F.Intrinsic.Control.Else
+	F.Intrinsic.Control.If(V.Screen.F_Pass!cmdAR.Caption,<>,"OK")
+		F.Intrinsic.Control.If(V.Screen.F_Pass!cmdAR.Caption,=,"ACCEPT")
+			Gui.F_Line.lblAccept.ForeColor(255)
+			Gui.F_Line.lblAccept.Caption("ACCEPT")
+		F.Intrinsic.Control.Else
+			Gui.F_Line.lblAccept.ForeColor(8421504)
+			Gui.F_Line.lblAccept.Caption("REJECT")
+		F.Intrinsic.Control.EndIf
+		Gui.F_Line.txtSample.SetMetaData("True",V.Screen.F_Line!txtSample.MetaData1)
+	F.Intrinsic.Control.Else
+		F.Intrinsic.Control.If(V.global.iR,<>,-1)
+'			F.Intrinsic.Debug.InvokeDebugger
+			F.Intrinsic.Debug.Stop
+			F.Intrinsic.Debug.Stop
+'			V.Local.iR.Set(V.Args.key)
+'			F.Intrinsic.Math.Add(V.args.key,-1,V.Local.iR)
+			Gui.F_Inspection.gsfgInspect.ReadRow(V.global.iR,V.Local.sRow)
+			F.Intrinsic.String.Split(V.Local.sRow,"*!*",V.Local.sRow)
+			
+			Gui.F_Line.txtSample.Text(V.Local.sRow(0))
+			Gui.F_Line.txtType.Text(V.Local.sRow(1))
+			Gui.F_Line.txtReq.Text(V.Local.sRow(2))
+			Gui.F_Line.txtTol.Text(V.Local.sRow(3))
+			Gui.F_Line.txtAct.Text(V.Local.sRow(4))
+			Gui.F_Line.txtGauge.Text(V.Local.sRow(5))
+	'		Gui.F_Line.lblAccept.Text(V.Local.sRow(6))
+			Gui.F_Line.txtNotes.Text(V.Local.sRow(7))
+			F.Intrinsic.Control.if(V.local.sRow(8),=,1)
+				Gui.F_Line.lblAccept.ForeColor(8421504)
+			F.Intrinsic.Control.Else
+				Gui.F_Line.lblAccept.ForeColor(255)
+			F.Intrinsic.Control.EndIf
+			F.Intrinsic.Control.if(V.local.sRow(9),=,"True")
+				Gui.F_Line.txtSample.SetMetaData("True",V.global.iR)
+			F.Intrinsic.Control.Else
+				Gui.F_Line.txtSample.SetMetaData("False",V.global.iR)
+			F.Intrinsic.Control.EndIf
+			F.Intrinsic.Control.CallSub("AcceptReject")
+			V.Global.bPass.Set(True)
+			Gui.F_Line..Show
+		F.Intrinsic.Control.EndIf
+	F.Intrinsic.Control.EndIf
+	F.Intrinsic.Control.CallSub("f_pass_unload")
+F.Intrinsic.Control.EndIf
+Gui.F_Pass..Enabled(True)
+
+program.sub.cmdar_click.end
+
+Program.Sub.GetInfo.Start
+V.Local.sQuery.Declare(String)
+
+'F.Intrinsic.String.Concat("SELECT PART FROM V_JOB_OPERATIONS WHERE LMO='L' AND JOB='",V.uGlobal.uHeader!Job.Trim,"' AND SUFFIX='",V.uGlobal.uHeader!Suffix.Trim,"' AND SEQ='",V.uGlobal.uHeader!Seq.Trim,"'",V.Local.sQuery)
+'F.ODBC.Connection!conx.OpenRecordsetRO("rstJOB",V.Local.sQuery)
+'F.Intrinsic.Control.If(V.ODBC.conx!rstJOB.EOF,<>,True)
+'	F.Intrinsic.String.Concat("SELECT WC_NAME FROM WORKCENTERS WHERE MACHINE='",V.ODBC.conx!rstJOB.FieldValTrim!PART,"'",V.Local.sQuery)
+'	F.ODBC.Connection!conx.OpenRecordsetRO("rstWC",V.Local.sQuery)
+'	F.Intrinsic.Control.If(V.ODBC.conx!rstWC.EOF,<>,True)
+'		V.uGlobal.uHeader!WC_Desc.Set(V.ODBC.conx!rstWC.FieldValTrim!WC_NAME)
+'	F.Intrinsic.Control.EndIf
+'	F.ODBC.conx!rstWC.Close
+'	V.uGlobal.uHeader!WC.Set(V.ODBC.conx!rstJOB.FieldValTrim!PART)
+'F.Intrinsic.Control.EndIf
+'F.ODBC.conx!rstJOB.close
+
+F.Intrinsic.String.Concat("SELECT WC_NAME FROM WORKCENTERS WHERE MACHINE='",V.uglobal.uHeader!WC,"'",V.Local.sQuery)
+F.ODBC.Connection!conx.OpenRecordsetRO("rstWC",V.Local.sQuery)
+F.Intrinsic.Control.If(V.ODBC.conx!rstWC.EOF,<>,True)
+	V.uGlobal.uHeader!WC_Desc.Set(V.ODBC.conx!rstWC.FieldValTrim!WC_NAME)
+F.Intrinsic.Control.EndIf
+F.ODBC.conx!rstWC.Close
+
+F.Intrinsic.String.Concat("SELECT PART, LOCATION, DESCRIPTION FROM V_JOB_HEADER WHERE JOB='",V.uGlobal.uHeader!Job.Trim,"' AND SUFFIX='",V.uGlobal.uHeader!Suffix.Trim,"'",V.Local.sQuery)
+F.ODBC.Connection!conx.OpenRecordsetRO("rstJOB",V.Local.sQuery)
+F.Intrinsic.Control.If(V.ODBC.conx!rstJOB.EOF,<>,True)
+	V.uGlobal.uHeader!Part_No.Set(V.ODBC.conx!rstJOB.FieldValTrim!PART)
+	V.uGlobal.uHeader!Loc.Set(V.ODBC.conx!rstJOB.FieldValTrim!LOCATION)
+	V.uGlobal.uHeader!Part_Desc.Set(V.ODBC.conx!rstJOB.FieldValTrim!DESCRIPTION)
+F.Intrinsic.Control.EndIf
+F.ODBC.conx!rstJOB.close
+
+Program.Sub.GetInfo.End
+
+Program.Sub.Comments.Start
+${$0$}$ATG_3696_QUALITY_INSPECTION$}$JCT$}$4/5/2016
+${$1$}$$}$$}$0$}$15880$}$OLS003-PB-PROCESS-PRE-HOOK (On-line GUI)$}$4/5/2016 4:01:16 PM$}$(Program: OLG002; Screen: OLS003)
+
+Program.Sub.Comments.End
+
