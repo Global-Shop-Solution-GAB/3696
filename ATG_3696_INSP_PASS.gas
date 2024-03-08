@@ -1,0 +1,107 @@
+Program.Sub.ScreenSU.Start
+gui.F_Pass..create
+gui.F_Pass..caption("Quality Inspection Password Maintenance")
+gui.F_Pass..size(6150,2115)
+gui.F_Pass..position(0,0)
+gui.F_Pass..event(unload,f_pass_unload)
+gui.F_Pass..alwaysontop(False)
+gui.F_Pass..fontname("Arial")
+gui.F_Pass..fontsize(8)
+gui.F_Pass..forecolor(0)
+gui.F_Pass..fontstyle(,,,,)
+gui.F_Pass..BackColor(-2147483633)
+gui.F_Pass..controlbox(True)
+gui.F_Pass..maxbutton(False)
+gui.F_Pass..minbutton(True)
+gui.F_Pass..mousepointer(0)
+gui.F_Pass..moveable(True)
+gui.F_Pass..sizeable(False)
+gui.F_Pass..ShowInTaskBar(True)
+gui.F_Pass..titlebar(True)
+gui.F_Pass.lbl1.create(label,"Old Password",True,1935,255,1,200,500,True,0,Arial,8,-2147483633,0)
+gui.F_Pass.lbl2.create(label,"New Password",True,1935,255,1,2100,500,True,0,Arial,8,-2147483633,0)
+gui.F_Pass.lbl3.create(label,"New Password",True,1935,255,1,4000,500,True,0,Arial,8,-2147483633,0)
+gui.F_Pass.txtOld.create(textbox,"",True,1800,300,0,200,700,True,0,Arial,8,-2147483643,1)
+gui.F_Pass.txtNew1.create(textbox,"",True,1800,300,0,2100,700,True,0,Arial,8,-2147483643,1)
+gui.F_Pass.txtNew2.create(textbox,"",True,1800,300,0,4000,700,True,0,Arial,8,-2147483643,1)
+gui.F_Pass.lbl4.create(label,"Please verify old password and enter new password twice.",True,5235,255,1,200,200,True,0,Arial,8,-2147483633,0)
+gui.F_Pass.cmdSave.create(button)
+gui.F_Pass.cmdSave.caption("Save")
+gui.F_Pass.cmdSave.visible(True)
+gui.F_Pass.cmdSave.size(855,375)
+gui.F_Pass.cmdSave.zorder(0)
+gui.F_Pass.cmdSave.position(200,1100)
+gui.F_Pass.cmdSave.enabled(True)
+gui.F_Pass.cmdSave.fontname("Arial")
+gui.F_Pass.cmdSave.fontsize(8)
+gui.F_Pass.cmdSave.event(click,cmdsave_click)
+
+
+Program.Sub.ScreenSU.End
+
+Program.Sub.Preflight.Start
+
+Program.Sub.Preflight.End
+
+Program.Sub.Main.Start
+F.ODBC.Connection!conx.OpenConnection(V.Ambient.PDSN,V.Ambient.PUser,V.Ambient.PPass)
+Gui.F_Pass..Show
+
+Gui.F_Pass.txtOld.PasswordChar("*")
+Gui.F_Pass.txtNew1.PasswordChar("*")
+Gui.F_Pass.txtNew2.PasswordChar("*")
+
+Program.Sub.Main.End
+
+program.sub.f_pass_unload.start
+F.ODBC.Connection!conx.Close
+F.Intrinsic.Control.end
+
+
+program.sub.f_pass_unload.end
+
+program.sub.cmdsave_click.start
+V.Local.sOldPass.Declare(String)
+
+F.Intrinsic.Control.If(V.Screen.F_Pass!txtNew1.Text,=,"")
+	F.Intrinsic.UI.Msgbox("Please verify old password and enter new password twice.")
+	F.Intrinsic.Control.ExitSub
+F.Intrinsic.Control.EndIf
+F.Intrinsic.Control.If(V.Screen.F_Pass!txtNew2.Text,=,"")
+	F.Intrinsic.UI.Msgbox("Please verify old password and enter new password twice.")
+	F.Intrinsic.Control.ExitSub
+F.Intrinsic.Control.EndIf
+F.Intrinsic.Control.If(V.Screen.F_Pass!txtOld.Text,=,"")
+	F.Intrinsic.UI.Msgbox("Please verify old password and enter new password twice.")
+	F.Intrinsic.Control.ExitSub
+F.Intrinsic.Control.EndIf
+f.Intrinsic.Control.If(V.Screen.F_Pass!txtNew1.Text.ucase,<>,V.Screen.F_Pass!txtNew2.Text.ucase)
+	F.Intrinsic.UI.Msgbox("New passwords do not match.")
+	F.Intrinsic.control.ExitSub
+F.Intrinsic.Control.EndIf
+
+F.ODBC.Connection!conx.OpenRecordsetRW("rstPass","SELECT * FROM ATG_3696_INSP_PASS")
+F.Intrinsic.Control.If(V.ODBC.conx!rstPass.EOF,=,True)
+	V.Local.sOldPass.Set("SUPERVSR")
+F.Intrinsic.Control.else
+	V.Local.sOldPass.Set(V.ODBC.conx!rstPass.FieldValRTrim!PASS)
+F.Intrinsic.Control.EndIf
+
+f.Intrinsic.Control.If(V.Screen.F_Pass!txtOld.Text.ucase,<>,V.Local.sOldPass.UCase)
+	F.Intrinsic.UI.Msgbox("Old password is invalid")
+	F.ODBC.conx!rstPass.Close
+	F.Intrinsic.Control.ExitSub
+F.Intrinsic.Control.EndIf
+
+F.Intrinsic.Control.If(V.ODBC.conx!rstPass.EOF,=,True)
+	F.ODBC.conx!rstPass.AddNew
+F.Intrinsic.Control.endif
+F.ODBC.conx!rstPass.Set!PASS(V.Screen.F_Pass!txtNew1.Text)
+F.ODBC.conx!rstPass.Update
+
+F.ODBC.conx!rstPass.Close
+F.Intrinsic.Control.CallSub("f_pass_unload")
+
+program.sub.cmdsave_click.end
+
+
